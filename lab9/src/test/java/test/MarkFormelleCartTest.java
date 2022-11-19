@@ -23,7 +23,7 @@ public class MarkFormelleCartTest {
 	public void setUpBrowser() {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		driver.get("https://markformelle.by/catalog/zhenshchinam/mf-life/bryuki-leginsy/182436-73175-1050/");
 	}
 
@@ -40,7 +40,7 @@ public class MarkFormelleCartTest {
 		WebElement buttonAddToCart = driver.findElement(By.xpath("//a[@href='javascript:void(0);']"));
 		buttonAddToCart.click();
 
-		WebElement amountOfGoods = driver.findElement(By.xpath("//span[@class='num']"));
+		WebElement amountOfGoods = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='num' and text()='1']")));
 //		WebElement buttonMoveToCart = driver.findElement(By.xpath("//a[text()='Перейти в корзину']"));
 //		Assert.assertEquals(buttonMoveToCart.getText(),EXPECTED_MOVE_TO_CART);
 		Assert.assertEquals(amountOfGoods.getText(),EXPECTED_AMOUNT_OF_GOODS);
