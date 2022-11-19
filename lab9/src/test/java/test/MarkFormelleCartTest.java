@@ -31,7 +31,7 @@ public class MarkFormelleCartTest {
 	public void testAddingItemToCart() {
 		WebElement buttonOpenListOfSizes = driver.findElement(By.xpath("//div[@class='size-header closed']"));
 		wait.until(ExpectedConditions.visibilityOf(buttonOpenListOfSizes));
-//		wait.until(ExpectedConditions.elementToBeClickable(buttonOpenListOfSizes));
+		wait.until(ExpectedConditions.elementToBeClickable(buttonOpenListOfSizes));
 		buttonOpenListOfSizes.click();
 
 		WebElement buttonItemSize = driver.findElement(By.xpath("//div[@data-offer-id='484144']"));
