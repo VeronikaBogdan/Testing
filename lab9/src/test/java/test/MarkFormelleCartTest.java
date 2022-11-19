@@ -16,7 +16,6 @@ import java.time.Duration;
 public class MarkFormelleCartTest {
 	private static final String EXPECTED_MOVE_TO_CART = "Перейти в корзину";
 	private static final String EXPECTED_AMOUNT_OF_GOODS = "1";
-	private static final String EXPECTED_SIZE = "Выбран размер S";
 	private static WebDriver driver;
 	private WebDriverWait wait;
 
@@ -24,14 +23,15 @@ public class MarkFormelleCartTest {
 	public void setUpBrowser() {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		driver.get("https://markformelle.by/catalog/zhenshchinam/mf-life/bryuki-leginsy/182436-73175-1050/");
 	}
 
 	@Test
-	public void testAddItemToCart() throws InterruptedException {
-		WebElement buttonOpenListOfSizes = driver.findElement(By.xpath("//div[@class='size-arrow']"));
-		Thread.sleep(2000);
+	public void testAddingItemToCart() {
+		WebElement buttonOpenListOfSizes = driver.findElement(By.xpath("//div[@class='size-header closed']"));
+		wait.until(ExpectedConditions.visibilityOf(buttonOpenListOfSizes));
+//		wait.until(ExpectedConditions.elementToBeClickable(buttonOpenListOfSizes));
 		buttonOpenListOfSizes.click();
 
 		WebElement buttonItemSize = driver.findElement(By.xpath("//div[@data-offer-id='484144']"));
@@ -43,26 +43,6 @@ public class MarkFormelleCartTest {
 		WebElement amountOfGoods = driver.findElement(By.xpath("//span[@class='num']"));
 //		WebElement buttonMoveToCart = driver.findElement(By.xpath("//a[text()='Перейти в корзину']"));
 //		Assert.assertEquals(buttonMoveToCart.getText(),EXPECTED_MOVE_TO_CART);
-		Assert.assertEquals(amountOfGoods.getText(),EXPECTED_AMOUNT_OF_GOODS);
-	}
-
-	@Test
-	public void testTitleNewsComparison() {
-		new WebDriverWait(driver, Duration.ofSeconds(20))
-						.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='size-header closed']")));
-		WebElement buttonOpenListOfSizes = driver.findElement(By.xpath("//div[@class='size-header closed']"));
-		buttonOpenListOfSizes.click();
-
-		WebElement buttonItemSize;
-		buttonItemSize = (new WebDriverWait(driver, Duration.ofSeconds(1000)))
-						.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-offer-id='484144']")));
-		buttonItemSize.click();
-
-		WebElement buttonAddToCart = (new WebDriverWait(driver, Duration.ofSeconds(5)))
-						.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[@href='javascript:void(0);']")));
-		buttonAddToCart.click();
-
-		WebElement amountOfGoods = driver.findElement(By.xpath("//span[@class='num']"));
 		Assert.assertEquals(amountOfGoods.getText(),EXPECTED_AMOUNT_OF_GOODS);
 	}
 
