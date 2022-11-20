@@ -39,7 +39,7 @@ public class MarkFormelleAddItemToCartTest {
 	public void testChangeOfTheButtonGoToCart() {
 		realizeChooseProductSizeAndClickButtonGoToCart();
 
-		WebElement buttonGoToCart = driver.findElement(By.xpath("//a[text()='Перейти в корзину']"));
+		WebElement buttonGoToCart = driver.findElement(By.xpath("//a[@data-addpickup='N']"));
 		Assert.assertEquals(buttonGoToCart.getText(),EXPECTED_MOVE_TO_CART);
 	}
 
