@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class MarkFormelleCartTest {
+public class MarkFormelleAddItemToCartTest {
 	private static final String EXPECTED_MOVE_TO_CART = "Перейти в корзину";
 	private static final String EXPECTED_AMOUNT_OF_GOODS = "1";
 	private static WebDriver driver;
@@ -28,7 +28,28 @@ public class MarkFormelleCartTest {
 	}
 
 	@Test
-	public void testAddingItemToCart() {
+	public void testAddItemToCart() {
+		realizeChooseProductSizeAndClickButtonGoToCart();
+
+		WebElement amountOfGoods = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='num' and text()='1']")));
+		Assert.assertEquals(amountOfGoods.getText(),EXPECTED_AMOUNT_OF_GOODS);
+	}
+
+	@Test
+	public void testChangeOfTheButtonGoToCart() {
+		realizeChooseProductSizeAndClickButtonGoToCart();
+
+		WebElement buttonGoToCart = driver.findElement(By.xpath("//a[text()='Перейти в корзину']"));
+		Assert.assertEquals(buttonGoToCart.getText(),EXPECTED_MOVE_TO_CART);
+	}
+
+	@AfterMethod
+	public void tearDown() {
+		driver.quit();
+		driver = null;
+	}
+
+	private void realizeChooseProductSizeAndClickButtonGoToCart() {
 		WebElement buttonOpenListOfSizes = driver.findElement(By.xpath("//div[@class='size-header closed']"));
 		wait.until(ExpectedConditions.visibilityOf(buttonOpenListOfSizes));
 		wait.until(ExpectedConditions.elementToBeClickable(buttonOpenListOfSizes));
@@ -39,17 +60,5 @@ public class MarkFormelleCartTest {
 
 		WebElement buttonAddToCart = driver.findElement(By.xpath("//a[@href='javascript:void(0);']"));
 		buttonAddToCart.click();
-
-		WebElement amountOfGoods = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='num' and text()='1']")));
-//		WebElement buttonMoveToCart = driver.findElement(By.xpath("//a[text()='Перейти в корзину']"));
-//		Assert.assertEquals(buttonMoveToCart.getText(),EXPECTED_MOVE_TO_CART);
-		Assert.assertEquals(amountOfGoods.getText(),EXPECTED_AMOUNT_OF_GOODS);
-	}
-
-
-	@AfterMethod
-	public void tearDown() {
-		driver.quit();
-		driver = null;
 	}
 }
