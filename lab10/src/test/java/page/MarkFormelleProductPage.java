@@ -10,33 +10,51 @@ public class MarkFormelleProductPage extends AbstractPage{
 	private static final String PRODUCT_PAGE_URL = "https://markformelle.by/catalog/zhenshchinam/mf-life/bryuki-leginsy/182436-73175-1050/";
 	private final WebDriverWait webDriverWait = new WebDriverWait(webDriver, WAIT_SECONDS);
 
-	@FindBy(xpath = "//div[@class='size-header closed']");
+	@FindBy(xpath = "//div[@class='size-header closed']")
 	private WebElement buttonOpenListOfSizes;
 
-	@FindBy(xpath = "//div[@data-offer-id='484144']");
+	@FindBy(xpath = "//div[@data-offer-id='484144']")
 	private WebElement buttonSelectSize;
 
-	@FindBy(xpath = "//a[@href='javascript:void(0);']");
+	@FindBy(xpath = "//a[@href='javascript:void(0);']")
 	private WebElement buttonAddToCart;
 
-	@FindBy(xpath = "//span[@class='num' and text()='1']");
-	private WebElement amountOfGoods;
+	@FindBy(xpath = "//span[@class='num' and text()='1']")
+	private WebElement amountOfProducts;
 
-	@FindBy(xpath = "//a[@data-addpickup='N' and @href='/personal/cart/']");
+	@FindBy(xpath = "//a[@data-addpickup='N' and @href='/personal/cart/']")
 	private WebElement buttonGoToCart;
 
 	public MarkFormelleProductPage(WebDriver driver) {
 		super(driver);
 	}
 
-	public MarkFormelleProductPage clickButtonOpenListOfSizes() {
+	public MarkFormelleProductPage openListOfSizes() {
 		webDriverWait.until(ExpectedConditions.elementToBeClickable(buttonOpenListOfSizes));
+		buttonOpenListOfSizes.click();
 		return this;
 	}
 
-	public MarkFormelleProductPage clickButtonSelectSize() {
+	public MarkFormelleProductPage selectSize() {
 		webDriverWait.until(ExpectedConditions.elementToBeClickable(buttonSelectSize));
+		buttonSelectSize.click();
 		return this;
+	}
+
+	public MarkFormelleProductPage addToCart() {
+		webDriverWait.until(ExpectedConditions.elementToBeClickable(buttonAddToCart));
+		buttonAddToCart.click();
+		return this;
+	}
+
+	public WebElement getAmountOfProducts() {
+		webDriverWait.until(ExpectedConditions.visibilityOf(amountOfProducts));
+		return amountOfProducts;
+	}
+
+	public WebElement getButtonGoToCart() {
+		webDriverWait.until(ExpectedConditions.visibilityOf(buttonGoToCart));
+		return buttonGoToCart;
 	}
 
 	@Override
