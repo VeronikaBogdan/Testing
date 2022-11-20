@@ -14,24 +14,27 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 public class MarkFormelleAddItemToCartTest {
+	private static final Duration WAIT_SECONDS = Duration.ofSeconds(15);
 	private static final String EXPECTED_MOVE_TO_CART = "Перейти в корзину";
 	private static final String EXPECTED_AMOUNT_OF_GOODS = "1";
-	private static WebDriver driver;
-	private WebDriverWait wait;
+
+	private WebDriver webDriver;
+	private WebDriverWait webDriverWait;
 
 	@BeforeMethod
 	public void setUpBrowser() {
-		driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		driver.get("https://markformelle.by/catalog/zhenshchinam/mf-life/bryuki-leginsy/182436-73175-1050/");
+		webDriver = new ChromeDriver();
+		webDriver.manage().window().maximize();
+		webDriverWait = new WebDriverWait(webDriver, WAIT_SECONDS);
+		webDriver.get("https://markformelle.by/catalog/zhenshchinam/mf-life/bryuki-leginsy/182436-73175-1050/");
 	}
 
 	@Test
 	public void testAddItemToCart() {
 		realizeChooseProductSizeAndClickButtonGoToCart();
 
-		WebElement amountOfGoods = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='num' and text()='1']")));
+		WebElement amountOfGoods = webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='num' and text()='1']")));
+		webDriverWait.until(ExpectedConditions.visibilityOf(amountOfGoods));
 		Assert.assertEquals(amountOfGoods.getText(),EXPECTED_AMOUNT_OF_GOODS);
 	}
 
@@ -39,26 +42,29 @@ public class MarkFormelleAddItemToCartTest {
 	public void testChangeOfTheButtonGoToCart() {
 		realizeChooseProductSizeAndClickButtonGoToCart();
 
-		WebElement buttonGoToCart = driver.findElement(By.xpath("//a[@data-addpickup='N' and @href='/personal/cart/']"));
+		WebElement buttonGoToCart = webDriver.findElement(By.xpath("//a[@data-addpickup='N' and @href='/personal/cart/']"));
+		webDriverWait.until(ExpectedConditions.visibilityOf(buttonGoToCart));
 		Assert.assertEquals(buttonGoToCart.getText(),EXPECTED_MOVE_TO_CART);
 	}
 
 	@AfterMethod
 	public void tearDown() {
-		driver.quit();
-		driver = null;
+		webDriver.quit();
+		webDriver = null;
 	}
 
 	private void realizeChooseProductSizeAndClickButtonGoToCart() {
-		WebElement buttonOpenListOfSizes = driver.findElement(By.xpath("//div[@class='size-header closed']"));
-		wait.until(ExpectedConditions.visibilityOf(buttonOpenListOfSizes));
-		wait.until(ExpectedConditions.elementToBeClickable(buttonOpenListOfSizes));
+		WebElement buttonOpenListOfSizes = webDriver.findElement(By.xpath("//div[@class='size-header closed']"));
+		webDriverWait.until(ExpectedConditions.visibilityOf(buttonOpenListOfSizes));
+		webDriverWait.until(ExpectedConditions.elementToBeClickable(buttonOpenListOfSizes));
 		buttonOpenListOfSizes.click();
 
-		WebElement buttonItemSize = driver.findElement(By.xpath("//div[@data-offer-id='484144']"));
-		buttonItemSize.click();
+		WebElement buttonSelectSize = webDriver.findElement(By.xpath("//div[@data-offer-id='484144']"));
+		webDriverWait.until(ExpectedConditions.elementToBeClickable(buttonSelectSize));
+		buttonSelectSize.click();
 
-		WebElement buttonAddToCart = driver.findElement(By.xpath("//a[@href='javascript:void(0);']"));
+		WebElement buttonAddToCart = webDriver.findElement(By.xpath("//a[@href='javascript:void(0);']"));
+		webDriverWait.until(ExpectedConditions.elementToBeClickable(buttonAddToCart));
 		buttonAddToCart.click();
 	}
 }
