@@ -13,7 +13,7 @@ public class MarkFormelleProductPage extends AbstractPage{
 	@FindBy(xpath = "//div[@class='size-header closed']")
 	private WebElement buttonOpenListOfSizes;
 
-	@FindBy(xpath = "//div[@data-offer-id='484144']")
+	@FindBy(xpath = "//div[@class='w25per size' and text()='S']")
 	private WebElement buttonSelectSize;
 
 	@FindBy(xpath = "//a[@href='javascript:void(0);']")

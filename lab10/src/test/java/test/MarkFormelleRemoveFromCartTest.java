@@ -1,6 +1,5 @@
 package test;
 
-import jdk.jfr.Name;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,12 +7,13 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import page.MarkFormelleCartPage;
+import page.MarkFormelleDressProductPage;
 import page.MarkFormelleProductPage;
+import page.MarkFormelleSweaterProductPage;
 
-
-public class MarkFormelleAddToCartTest {
+public class MarkFormelleRemoveFromCartTest {
 	private static final String EXPECTED_AMOUNT_OF_PRODUCTS = "1";
-	private static final String EXPECTED_MOVE_TO_CART = "Перейти в корзину";
 	private WebDriver webDriver;
 
 	@BeforeMethod
@@ -23,28 +23,29 @@ public class MarkFormelleAddToCartTest {
 	}
 
 	@Test
-	public void testAddProductToCart() {
-		WebElement amountOfProducts = new MarkFormelleProductPage(webDriver)
+	public void testRemoveProductRemoveCart() {
+		new MarkFormelleProductPage(webDriver)
 						.openPage()
 						.openListOfSizes()
 						.selectSize()
-						.addToCart()
+						.addToCart();
+		new MarkFormelleDressProductPage(webDriver)
+						.openPage()
+						.openListOfSizes()
+						.selectSize()
+						.addToCart();
+		new MarkFormelleSweaterProductPage(webDriver)
+						.openPage()
+						.openListOfSizes()
+						.selectSize()
+						.addToCart();
+		WebElement amountOfProducts = new MarkFormelleCartPage(webDriver)
+						.openPage()
+						.removeTrousers()
+						.removeSweater()
 						.getAmountOfProducts();
 
 		Assert.assertEquals(amountOfProducts.getText(), EXPECTED_AMOUNT_OF_PRODUCTS);
-	}
-
-	@Name("test buttonGoToCart ")
-	@Test
-	public void testChangeOfTheButtonGoToCart() {
-		WebElement buttonGoToCart = new MarkFormelleProductPage(webDriver)
-						.openPage()
-						.openListOfSizes()
-						.selectSize()
-						.addToCart()
-						.getButtonGoToCart();
-
-		Assert.assertEquals(buttonGoToCart.getText(), EXPECTED_MOVE_TO_CART);
 	}
 
 	@AfterMethod
