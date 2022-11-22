@@ -1,6 +1,5 @@
 package test;
 
-import jdk.jfr.Name;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,8 +11,8 @@ import page.MarkFormelleProductPage;
 
 
 public class MarkFormelleAddToCartTest {
-	private static final String EXPECTED_AMOUNT_OF_PRODUCTS = "1";
-	private static final String EXPECTED_MOVE_TO_CART = "Перейти в корзину";
+	private static final String AMOUNT_OF_PRODUCTS = "1";
+	private static final String GO_TO_CART = "Перейти в корзину";
 	private WebDriver webDriver;
 
 	@BeforeMethod
@@ -24,32 +23,25 @@ public class MarkFormelleAddToCartTest {
 
 	@Test
 	public void testAddProductToCart() {
-		WebElement amountOfProducts = new MarkFormelleProductPage(webDriver)
-						.openPage()
-						.openListOfSizes()
-						.selectSize()
-						.addToCart()
-						.getAmountOfProducts();
-
-		Assert.assertEquals(amountOfProducts.getText(), EXPECTED_AMOUNT_OF_PRODUCTS);
+		Assert.assertEquals(addProductToCart().getAmountOfProducts().getText(), AMOUNT_OF_PRODUCTS);
 	}
 
-	@Name("test buttonGoToCart ")
 	@Test
 	public void testChangeOfTheButtonGoToCart() {
-		WebElement buttonGoToCart = new MarkFormelleProductPage(webDriver)
-						.openPage()
-						.openListOfSizes()
-						.selectSize()
-						.addToCart()
-						.getButtonGoToCart();
-
-		Assert.assertEquals(buttonGoToCart.getText(), EXPECTED_MOVE_TO_CART);
+		Assert.assertEquals(addProductToCart().getButtonGoToCart().getText(), GO_TO_CART);
 	}
 
 	@AfterMethod
 	public void tearDown() {
 		webDriver.quit();
 		webDriver = null;
+	}
+
+	public MarkFormelleProductPage addProductToCart() {
+		return new MarkFormelleProductPage(webDriver)
+			.openPage()
+			.openListOfSizes()
+			.selectSize()
+			.addToCart();
 	}
 }
