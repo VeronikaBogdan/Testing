@@ -27,12 +27,11 @@ public class MarkFormelleAddItemToCartTest {
 		webDriver.manage().window().maximize();
 		webDriverWait = new WebDriverWait(webDriver, WAIT_SECONDS);
 		webDriver.get("https://markformelle.by/catalog/zhenshchinam/mf-life/bryuki-leginsy/182436-73175-1050/");
+		realizeChooseProductSizeAndClickButtonGoToCart();
 	}
 
 	@Test
 	public void testAddItemToCart() {
-		realizeChooseProductSizeAndClickButtonGoToCart();
-
 		WebElement amountOfGoods = webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@class='num' and text()='1']")));
 		webDriverWait.until(ExpectedConditions.visibilityOf(amountOfGoods));
 		Assert.assertEquals(amountOfGoods.getText(),EXPECTED_AMOUNT_OF_GOODS);
@@ -40,8 +39,6 @@ public class MarkFormelleAddItemToCartTest {
 
 	@Test
 	public void testChangeOfTheButtonGoToCart() {
-		realizeChooseProductSizeAndClickButtonGoToCart();
-
 		WebElement buttonGoToCart = webDriver.findElement(By.xpath("//a[@data-addpickup='N' and @href='/personal/cart/']"));
 		webDriverWait.until(ExpectedConditions.visibilityOf(buttonGoToCart));
 		Assert.assertEquals(buttonGoToCart.getText(),EXPECTED_MOVE_TO_CART);
@@ -50,7 +47,6 @@ public class MarkFormelleAddItemToCartTest {
 	@AfterMethod
 	public void tearDown() {
 		webDriver.quit();
-		webDriver = null;
 	}
 
 	private void realizeChooseProductSizeAndClickButtonGoToCart() {

@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import page.*;
 
-public class MarkFormelleRemoveFromCartTest {
+public class MarkFormelleRemoveTwoProductsFromCartTest {
 	private static final String AMOUNT_OF_PRODUCTS = "1";
 	private WebDriver webDriver;
 
@@ -22,20 +22,19 @@ public class MarkFormelleRemoveFromCartTest {
 	  	addProductToCart(new MarkFormelleDressProductPage(webDriver));
 	}
 
-	@Test
+	@Test(description = "test remove two certain products from cart")
 	public void testRemoveProductFromCart() {
-		WebElement amountOfProducts = new MarkFormelleCartPage(webDriver)
+		String amountOfProducts = new MarkFormelleCartPage(webDriver)
 			.openPage()
 			.removeTrousers()
 			.removeSweater()
 			.getAmountOfProducts();
-	  	Assert.assertEquals(amountOfProducts.getText(), AMOUNT_OF_PRODUCTS);
+	  	Assert.assertEquals(amountOfProducts, AMOUNT_OF_PRODUCTS);
 	}
 
 	@AfterMethod
 	public void tearDown() {
 		webDriver.quit();
-		webDriver = null;
 	}
 
 	public void addProductToCart(MarkFormelleProductPage markFormelleProductPage) {

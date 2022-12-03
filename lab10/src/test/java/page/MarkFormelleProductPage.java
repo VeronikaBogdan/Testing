@@ -36,7 +36,6 @@ public class MarkFormelleProductPage extends AbstractPage{
 	}
 
 	public MarkFormelleProductPage selectSize() {
-		webDriverWait.until(ExpectedConditions.elementToBeClickable(buttonSelectSize));
 		buttonSelectSize.click();
 		return this;
 	}
@@ -47,14 +46,12 @@ public class MarkFormelleProductPage extends AbstractPage{
 		return this;
 	}
 
-	public WebElement getAmountOfProducts() {
-		webDriverWait.until(ExpectedConditions.visibilityOf(amountOfProducts));
-		return amountOfProducts;
+	public String getAmountOfProducts() {
+		return amountOfProducts.getText();
 	}
 
-	public WebElement getButtonGoToCart() {
-		webDriverWait.until(ExpectedConditions.visibilityOf(buttonGoToCart));
-		return buttonGoToCart;
+	public String getButtonGoToCart() {
+		return buttonGoToCart.getText();
 	}
 
 	@Override
