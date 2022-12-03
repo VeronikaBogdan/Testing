@@ -2,8 +2,6 @@ package page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,6 +10,7 @@ public class MarkFormelleCartPage extends AbstractPage{
 	private static final String PRICE_TROUSERS = "54.79 BYN";
 	private static final String PRICE_SWEATER = "34.79 BYN";
 	private final WebDriverWait webDriverWait = new WebDriverWait(webDriver, WAIT_SECONDS);
+	private final By amountOfProducts = By.xpath("//span[@class='num']/span[text()='1']");
 
 	public MarkFormelleCartPage(WebDriver driver) {
 		super(driver);
@@ -33,7 +32,7 @@ public class MarkFormelleCartPage extends AbstractPage{
 
 	public String getAmountOfProducts() {
 		return webDriverWait
-			.until(ExpectedConditions.visibilityOf((WebElement) By.xpath("//span[@class='num']/span[text()='1']")))
+			.until(ExpectedConditions.presenceOfElementLocated(amountOfProducts))
 			.getText();
 	}
 

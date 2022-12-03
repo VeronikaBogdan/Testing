@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Smoke" verbose="1" >
+    <test name="AddProductToCart"   >
+        <classes>
+            <class name="test.MarkFormelleAddProductToCartTest" />
+            <class name="test.MarkFormelleRemoveTwoProductsFromCartTest" />
+        </classes>
+    </test>
+</suite>
