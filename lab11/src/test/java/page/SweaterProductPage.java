@@ -2,15 +2,15 @@ package page;
 
 import org.openqa.selenium.WebDriver;
 
-public class MarkFormelleSweaterProductPage extends MarkFormelleProductPage{
+public class SweaterProductPage extends ProductPage {
 	private static final String PRODUCT_PAGE_URL = "https://markformelle.by/catalog/zhenshchinam/mf-life/koftochki-longslivy/dzhempery-kombidresy/122722-74708-1050/";
 
-	public MarkFormelleSweaterProductPage(WebDriver driver) {
+	public SweaterProductPage(WebDriver driver) {
 		super(driver);
 	}
 
 	@Override
-	public MarkFormelleProductPage openPage() {
+	public ProductPage openPage() {
 		webDriver.get(PRODUCT_PAGE_URL);
 		return this;
 	}

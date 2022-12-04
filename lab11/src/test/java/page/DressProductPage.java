@@ -2,15 +2,15 @@ package page;
 
 import org.openqa.selenium.WebDriver;
 
-public class MarkFormelleDressProductPage extends MarkFormelleProductPage{
+public class DressProductPage extends ProductPage {
 	private static final String PRODUCT_PAGE_URL = "https://markformelle.by/catalog/collections/autumnvibes/plate-khudi-kofeynogo-tsveta-v-sportivnom-stile-s-aktsentnym-printom-/";
 
-	public MarkFormelleDressProductPage(WebDriver driver) {
+	public DressProductPage(WebDriver driver) {
 		super(driver);
 	}
 
 	@Override
-	public MarkFormelleProductPage openPage() {
+	public ProductPage openPage() {
 		webDriver.get(PRODUCT_PAGE_URL);
 		return this;
 	}

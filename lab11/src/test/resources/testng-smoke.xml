@@ -3,8 +3,8 @@
 <suite name="Smoke" verbose="1" >
     <test name="AddProductToCart"   >
         <classes>
-            <class name="test.MarkFormelleAddProductToCartTest" />
-            <class name="test.MarkFormelleRemoveTwoProductsFromCartTest" />
+            <class name="test.AddProductToCartTest" />
+            <class name="test.RemoveProductsFromCartTest" />
         </classes>
     </test>
 </suite>
