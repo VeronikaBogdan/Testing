@@ -2,12 +2,9 @@ package page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProductPage extends AbstractPage{
 	private static final String PRODUCT_PAGE_URL = "https://markformelle.by/catalog/zhenshchinam/mf-life/bryuki-leginsy/182436-73175-1050/";
-	private final WebDriverWait webDriverWait = new WebDriverWait(webDriver, WAIT_SECONDS);
 	private final By buttonOpenListOfSizes = By.xpath("//div[@class='size-header closed']");
 	private final By buttonSelectSize = By.xpath("//div[@class='w25per size' and text()='S']");
 	private final By buttonAddToCart = By.xpath("//a[@href='javascript:void(0);']");
@@ -20,43 +17,32 @@ public class ProductPage extends AbstractPage{
 	}
 
 	public ProductPage openListOfSizes() {
-		webDriverWait
-			.until(ExpectedConditions.presenceOfElementLocated(buttonOpenListOfSizes));
-		webDriverWait
-			.until(ExpectedConditions.elementToBeClickable(buttonOpenListOfSizes))
-			.click();
+		waitUntilElementToBeClickableAndClick(buttonOpenListOfSizes);
 		return this;
 	}
 
 	public ProductPage selectSize() {
-		webDriverWait
-			.until(ExpectedConditions.elementToBeClickable(buttonSelectSize))
-			.click();
+		waitUntilElementToBeClickableAndClick(buttonSelectSize);
 		return this;
 	}
 
 	public ProductPage addToCart() {
-		webDriverWait
-			.until(ExpectedConditions.elementToBeClickable(buttonAddToCart))
-			.click();
+		waitUntilElementToBeClickableAndClick(buttonAddToCart);
 		return this;
 	}
 
 	public String getAmountOfProducts() {
-		return webDriverWait
-			.until(ExpectedConditions.presenceOfElementLocated(amountOfProducts))
+		return waitForPresenceOfElement(amountOfProducts)
 			.getText();
 	}
 
 	public String getButtonGoToCart() {
-		return webDriverWait
-			.until(ExpectedConditions.presenceOfElementLocated(buttonGoToCart))
+		return waitForPresenceOfElement(buttonGoToCart)
 			.getText();
 	}
 
 	public String getTitleOfProduct() {
-		return webDriverWait
-			.until(ExpectedConditions.presenceOfElementLocated(titleOfProduct))
+		return waitForPresenceOfElement(titleOfProduct)
 			.getText();
 	}
 
