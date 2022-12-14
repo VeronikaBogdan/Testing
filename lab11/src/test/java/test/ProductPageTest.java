@@ -15,6 +15,9 @@ import static org.hamcrest.Matchers.is;
 public class ProductPageTest extends CommonConditions {
 	private final Logger logger = LogManager.getRootLogger();
 
+	private static final String WRONG_EMAIL_MESSAGE = "Кажется, в адресе ошибка";
+	private static final String EMPTY_EMPTY_MESSAGE = "Нужен E-mail, чтобы подписаться";
+
 	@Test
 	public void testLogin() {
 		User testUser = UserCreator.withCredentialsFromProperty();
@@ -27,5 +30,25 @@ public class ProductPageTest extends CommonConditions {
 			.getEmail();
 		logger.info("Get email in Test");
 		assertThat(loggedInUserEmail, is(equalTo(testUser.getEmail())));
+	}
+
+	@Test
+	public void testInvalidFillingInSubscriptionForm() {
+		User user = null;
+
+		user = UserCreator.withCredentialsFromPropertyWrongEmail();
+		String wrongEmailMessage = subscribeUser(user).getWrongEmailMessage();
+
+		user = UserCreator.withCredentialsFromPropertyEmptyEmail();
+		String emptyEmailMessage = subscribeUser(user).getEmptyEmailMessage();
+
+		assertThat(wrongEmailMessage, is(equalTo(WRONG_EMAIL_MESSAGE)));
+		assertThat(emptyEmailMessage, is(equalTo(EMPTY_EMPTY_MESSAGE)));
+	}
+
+	public SweaterProductPage subscribeUser(User user) {
+		return new SweaterProductPage(webDriver)
+			.openPage()
+			.subscribe(user);
 	}
 }

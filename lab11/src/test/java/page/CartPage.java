@@ -1,10 +1,13 @@
 package page;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import util.LocatorUtil;
 
 public class CartPage extends AbstractPage{
+	private final Logger logger = LogManager.getRootLogger();
 	protected static final String CART_PAGE_URL = "https://markformelle.by/personal/cart/";
 	private static final String REMOVE_PRODUCT_LOCATOR_PATTERN = "//div[text()='%s']/../..//a[@data-entity='basket-item-delete']";
 	private final By amountOfProducts = By.xpath("//span[@class='num']/span[text()='1']");
@@ -39,6 +42,7 @@ public class CartPage extends AbstractPage{
 	@Override
 	public CartPage openPage() {
 		webDriver.get(CART_PAGE_URL);
+		logger.info("Cart Page opened");
 		return this;
 	}
 }
