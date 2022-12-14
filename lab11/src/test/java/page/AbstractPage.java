@@ -12,15 +12,13 @@ import java.time.Duration;
 
 public abstract class AbstractPage {
 	protected static final int WAIT_SECONDS = 10;
-//	protected static final Duration WAIT_SECONDS = Duration.ofSeconds(15);
 	protected WebDriver webDriver;
 
 	protected abstract AbstractPage openPage();
 
 	protected AbstractPage(WebDriver webDriver) {
 		this.webDriver = webDriver;
-		AjaxElementLocatorFactory factory = new AjaxElementLocatorFactory(webDriver, WAIT_SECONDS);
-		PageFactory.initElements(factory, this);
+		PageFactory.initElements(webDriver, this);
 	}
 
 	protected WebElement waitForPresenceOfElement(By locator) {

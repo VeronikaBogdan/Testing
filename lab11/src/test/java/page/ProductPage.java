@@ -1,9 +1,12 @@
 package page;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class ProductPage extends AbstractPage{
+	private final Logger logger = LogManager.getRootLogger();
 	private static final String PRODUCT_PAGE_URL = "https://markformelle.by/catalog/zhenshchinam/mf-life/bryuki-leginsy/182436-73175-1050/";
 	private final By buttonOpenListOfSizes = By.xpath("//div[@class='size-header closed']");
 	private final By buttonSelectSize = By.xpath("//div[@class='w25per size' and text()='S']");
@@ -16,12 +19,14 @@ public class ProductPage extends AbstractPage{
 		super(driver);
 	}
 
-	public ProductPage openListOfSizes() {
-		waitUntilElementToBeClickableAndClick(buttonOpenListOfSizes);
-		return this;
-	}
+//	public ProductPage openListOfSizes() {
+//		waitUntilElementToBeClickableAndClick(buttonOpenListOfSizes);
+//		return this;
+//	}
 
 	public ProductPage selectSize() {
+//		waitForPresenceOfElement(buttonOpenListOfSizes).click();
+		waitUntilElementToBeClickableAndClick(buttonOpenListOfSizes);
 		waitUntilElementToBeClickableAndClick(buttonSelectSize);
 		return this;
 	}
@@ -49,6 +54,7 @@ public class ProductPage extends AbstractPage{
 	@Override
 	public ProductPage openPage() {
 		webDriver.get(PRODUCT_PAGE_URL);
+		logger.info("Product Page opened");
 		return this;
 	}
 }
