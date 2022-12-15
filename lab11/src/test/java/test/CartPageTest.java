@@ -11,7 +11,7 @@ public class CartPageTest extends CommonConditions {
 	private static final String AMOUNT_OF_PRODUCTS = "1";
 	private static final String GO_TO_CART = "Перейти в корзину";
 	private static final String EMPTY_CART_TEXT = "Ваша корзина пуста";
-	private static final String PRICE_TROUSERS = "54.79 BYN";
+	private static final String PRICE_TROUSERS = "44.99 BYN";
 	private static final String PRICE_SWEATER = "34.79 BYN";
 
 	@Test
