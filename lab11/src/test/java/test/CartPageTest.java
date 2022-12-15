@@ -14,24 +14,24 @@ public class CartPageTest extends CommonConditions {
 	private static final String PRICE_TROUSERS = "54.79 BYN";
 	private static final String PRICE_SWEATER = "34.79 BYN";
 
-//	@Test
-//	public void testAddProductToCart() {
-//		ProductPage addingProductToCart = addProductToCart(new ProductPage(webDriver));
-//		String titleOfProduct = addingProductToCart.getTitleOfProduct();
-//		String amountOfProducts = addingProductToCart.getAmountOfProducts();
-//		String buttonGoToCart = addingProductToCart.getButtonGoToCart();
-//
-//		String amountOfProductsInCart = new CartPage(webDriver)
-//			.openPage()
-//			.getAmountOfProducts();
-//		String titleOfProductInCart = new CartPage(webDriver)
-//			.openPage()
-//			.getTitleOfProduct();
-//
-//		assertThat(buttonGoToCart, is(equalTo(GO_TO_CART)));
-//		assertThat(amountOfProducts, is(equalTo(amountOfProductsInCart)));
-//		assertThat(titleOfProduct, is(equalTo(titleOfProductInCart)));
-//	}
+	@Test
+	public void testAddProductToCart() {
+		ProductPage addingProductToCart = addProductToCart(new ProductPage(webDriver));
+		String titleOfProduct = addingProductToCart.getTitleOfProduct();
+		String amountOfProducts = addingProductToCart.getAmountOfProducts();
+		String buttonGoToCart = addingProductToCart.getButtonGoToCart();
+
+		String amountOfProductsInCart = new CartPage(webDriver)
+			.openPage()
+			.getAmountOfProducts();
+		String titleOfProductInCart = new CartPage(webDriver)
+			.openPage()
+			.getTitleOfProduct();
+
+		assertThat(buttonGoToCart, is(equalTo(GO_TO_CART)));
+		assertThat(amountOfProducts, is(equalTo(amountOfProductsInCart)));
+		assertThat(titleOfProduct, is(equalTo(titleOfProductInCart)));
+	}
 
 	@Test
 	public void testCostOfProductWithIncreaseInQuantityIsCalculatedCorrectly() {
