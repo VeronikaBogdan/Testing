@@ -21,6 +21,11 @@ public abstract class AbstractPage {
 		PageFactory.initElements(webDriver, this);
 	}
 
+	protected AbstractPage(WebDriver webDriver, String url) {
+		this.webDriver = webDriver;
+		PageFactory.initElements(webDriver, this);
+	}
+
 	protected WebElement waitForPresenceOfElement(By locator) {
 		return new WebDriverWait(webDriver, Duration.ofSeconds(WAIT_SECONDS))
 			.until(ExpectedConditions.presenceOfElementLocated(locator));

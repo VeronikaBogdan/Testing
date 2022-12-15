@@ -8,6 +8,10 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 public class CartPageTest extends CommonConditions {
+	private static final String DRESS_PAGE_URL = "https://markformelle.by/catalog/zhenshchinam/mf-life/platya-tuniki-yubki/platya-tuniki-dlinnyy-rukav/152532-75491-1050/";
+	private static final String SWEATER_PAGE_URL = "https://markformelle.by/catalog/zhenshchinam/mf-life/koftochki-longslivy/dzhempery-kombidresy/122722-74708-1050/";
+	private static final String TROUSERS_PAGE_URL = "https://markformelle.by/catalog/zhenshchinam/mf-life/bryuki-leginsy/182436-73175-1050/";
+
 	private static final String AMOUNT_OF_PRODUCTS = "1";
 	private static final String GO_TO_CART = "Перейти в корзину";
 	private static final String EMPTY_CART_TEXT = "Ваша корзина пуста";
@@ -16,7 +20,7 @@ public class CartPageTest extends CommonConditions {
 
 	@Test
 	public void testAddProductToCart() {
-		ProductPage addingProductToCart = addProductToCart(new ProductPage(webDriver));
+		ProductPage addingProductToCart = addProductToCart(new ProductPage(webDriver), TROUSERS_PAGE_URL);
 		String titleOfProduct = addingProductToCart.getTitleOfProduct();
 		String amountOfProducts = addingProductToCart.getAmountOfProducts();
 		String buttonGoToCart = addingProductToCart.getButtonGoToCart();
@@ -35,7 +39,7 @@ public class CartPageTest extends CommonConditions {
 
 	@Test
 	public void testTotalSumIsCalculatedCorrectly() {
-		addProductToCart(new SweaterProductPage(webDriver));
+		addProductToCart(new ProductPage(webDriver), SWEATER_PAGE_URL);
 		CartPage cartPage = new CartPage(webDriver)
 			.openPage();
 
@@ -48,7 +52,7 @@ public class CartPageTest extends CommonConditions {
 
 	@Test
 	public void testClearCart() {
-		addProductToCart(new ProductPage(webDriver));
+		addProductToCart(new ProductPage(webDriver), TROUSERS_PAGE_URL);
 		String emptyCartText = new CartPage(webDriver)
 			.openPage()
 			.clearCart()
@@ -58,9 +62,9 @@ public class CartPageTest extends CommonConditions {
 
 	@Test
 	public void testRemoveProductsFromCart() {
-		addProductToCart(new ProductPage(webDriver));
-		addProductToCart(new SweaterProductPage(webDriver));
-		addProductToCart(new DressProductPage(webDriver));
+		addProductToCart(new ProductPage(webDriver),TROUSERS_PAGE_URL);
+		addProductToCart(new ProductPage(webDriver), SWEATER_PAGE_URL);
+		addProductToCart(new ProductPage(webDriver), DRESS_PAGE_URL);
 		String amountOfProducts = new CartPage(webDriver)
 			.openPage()
 			.removeProduct(PRICE_TROUSERS)
@@ -69,9 +73,9 @@ public class CartPageTest extends CommonConditions {
 		assertThat(amountOfProducts,is(equalTo(AMOUNT_OF_PRODUCTS)));
 	}
 
-	public ProductPage addProductToCart(ProductPage productPage) {
+	public ProductPage addProductToCart(ProductPage productPage, String url) {
 		return productPage
-			.openPage()
+			.openPage(url)
 			.selectSize()
 			.addToCart();
 	}
