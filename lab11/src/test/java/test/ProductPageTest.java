@@ -1,8 +1,6 @@
 package test;
 
 import model.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 import page.PersonalPage;
 import page.SweaterProductPage;
@@ -13,8 +11,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 public class ProductPageTest extends CommonConditions {
-	private final Logger logger = LogManager.getRootLogger();
-
 	private static final String WRONG_EMAIL_MESSAGE = "Кажется, в адресе ошибка";
 	private static final String EMPTY_EMPTY_MESSAGE = "Нужен E-mail, чтобы подписаться";
 

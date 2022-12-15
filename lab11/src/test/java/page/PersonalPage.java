@@ -17,10 +17,12 @@ public class PersonalPage extends AbstractPage {
 	}
 
 	public String getName() {
+		logger.info("Get name from input's attribute");
 		return waitForPresenceOfElement(name).getAttribute("value");
 	}
 
 	public String getSurname() {
+		logger.info("Get surname from input's attribute");
 		return waitForPresenceOfElement(surname).getAttribute("value");
 	}
 	public String getEmail() {

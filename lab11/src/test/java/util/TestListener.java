@@ -53,7 +53,7 @@ public class TestListener implements ITestListener {
 			.getScreenshotAs(OutputType.FILE);
 		try {
 			FileUtils.copyFile(screenCapture, new File(
-				".//target/screenshots/"
+				".//src/test/screenshots/"
 					+ getCurrentTimeAsString() +
 					".png"));
 		} catch (IOException e) {

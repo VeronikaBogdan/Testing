@@ -22,6 +22,7 @@ public class ProductPage extends AbstractPage{
 	public ProductPage selectSize() {
 		waitUntilElementToBeClickableAndClick(buttonOpenListOfSizes);
 		waitUntilElementToBeClickableAndClick(buttonSelectSize);
+		logger.info("Size is chosen");
 		return this;
 	}
 

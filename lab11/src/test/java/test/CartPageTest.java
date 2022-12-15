@@ -32,18 +32,31 @@ public class CartPageTest extends CommonConditions {
 		assertThat(amountOfProducts, is(equalTo(amountOfProductsInCart)));
 		assertThat(titleOfProduct, is(equalTo(titleOfProductInCart)));
 	}
+//
+//	@Test
+//	public void testCostOfProductWithIncreaseInQuantityIsCalculatedCorrectly() {
+//		addProductToCart(new SweaterProductPage(webDriver));
+//		CartPage doubledProduct = new CartPage(webDriver)
+//			.openPage()
+//			.choosePickup()
+//			.clickButtonPlus();
+//		double priceForUnit = Double.parseDouble(doubledProduct.getPriceForUnit().substring(0,5));
+//		double priceProduct = Double.parseDouble(doubledProduct.getPriceProduct().substring(0,5));
+//
+//		assertThat(Math.round(priceForUnit * 2), is(equalTo(Math.round(priceProduct))));
+//	}
 
 	@Test
-	public void testCostOfProductWithIncreaseInQuantityIsCalculatedCorrectly() {
+	public void testTotalSumIsCalculatedCorrectly() {
 		addProductToCart(new SweaterProductPage(webDriver));
-		CartPage doubledProduct = new CartPage(webDriver)
-			.openPage()
-			.choosePickup()
-			.clickButtonPlus();
-		double priceForUnit = Double.parseDouble(doubledProduct.getPriceForUnit().substring(0,5));
-		double priceProduct = Double.parseDouble(doubledProduct.getPriceProduct().substring(0,5));
+		CartPage cartPage = new CartPage(webDriver)
+			.openPage();
 
-		assertThat(Math.round(priceForUnit * 2), is(equalTo(Math.round(priceProduct))));
+		double priceDeliveryFromWarehouse = Double.parseDouble(cartPage.getPriceDeliveryFromWarehouse().substring(0,5));
+		double priceDelivery = Double.parseDouble(cartPage.getPriceDelivery().substring(0,1));
+		double totalPrice = Double.parseDouble(cartPage.getTotalPrice().substring(0,5));
+
+		assertThat(Math.round(priceDeliveryFromWarehouse + priceDelivery), is(equalTo(Math.round(totalPrice))));
 	}
 
 	@Test
@@ -56,7 +69,7 @@ public class CartPageTest extends CommonConditions {
 		assertThat(emptyCartText, is(equalTo(EMPTY_CART_TEXT)));
 	}
 
-	@Test(description = "test remove two certain products from cart")
+	@Test
 	public void testRemoveProductsFromCart() {
 		addProductToCart(new ProductPage(webDriver));
 		addProductToCart(new SweaterProductPage(webDriver));

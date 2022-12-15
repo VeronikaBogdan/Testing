@@ -3,9 +3,7 @@ package page;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 import util.LocatorUtil;
 
 public class CartPage extends AbstractPage{
@@ -22,31 +20,25 @@ public class CartPage extends AbstractPage{
 	private final By priceProduct = By.xpath("//div[contains(@id,'basket-item-sum-price')]");
 	private final By priceDeliveryFromWarehouse = By.xpath("//div[@class='pink-text']");
 	private final By totalPrice = By.xpath("//div[@class='basket-total__price']");
-
-
+	private final By priceDelivery = By.xpath("//li[@class='basket-total__info']/div[contains(text(), '4')]");
 
 	public CartPage(WebDriver driver) {
 		super(driver);
 	}
 
 	public CartPage choosePickup() {
-//		JavascriptExecutor js = (JavascriptExecutor) webDriver;
-//		js.executeScript("window.scrollBy(0,100)");
 		waitUntilElementToBeClickableAndClick(pickup);
 		return this;
 	}
 
 	public CartPage clickButtonPlus() {
 		waitForPresenceOfElement(buttonPlus).click();
-//		waitForPresenceOfElement(buttonPlus);
-//		Actions action = new Actions(webDriver);
-//		action.moveToElement(waitForPresenceOfElement(buttonPlus)).moveByOffset(0, 5).click();
-//		waitUntilElementToBeClickableAndClick(buttonPlus);
 		return this;
 	}
 
 	public CartPage removeProduct(String price) {
 		waitUntilElementToBeClickableAndClick(LocatorUtil.getLocatorByXpathPattern(REMOVE_PRODUCT_LOCATOR_PATTERN, price));
+		logger.info("Product with price" + price + " is removed");
 		return this;
 	}
 
@@ -76,6 +68,11 @@ public class CartPage extends AbstractPage{
 			.getText();
 	}
 
+	public String getPriceDelivery() {
+		return waitForPresenceOfElement(priceDelivery)
+			.getText();
+	}
+
 	public String getTitleOfProduct() {
 		return waitForPresenceOfElement(titleOfProduct)
 			.getText();
@@ -93,8 +90,6 @@ public class CartPage extends AbstractPage{
 
 	@Override
 	public CartPage openPage() {
-		JavascriptExecutor js = (JavascriptExecutor) webDriver;
-		js.executeScript("window.scrollBy(0,300)");
 		webDriver.get(CART_PAGE_URL);
 		logger.info("Cart Page opened");
 		return this;
