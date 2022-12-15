@@ -19,13 +19,7 @@ public class ProductPage extends AbstractPage{
 		super(driver);
 	}
 
-//	public ProductPage openListOfSizes() {
-//		waitUntilElementToBeClickableAndClick(buttonOpenListOfSizes);
-//		return this;
-//	}
-
 	public ProductPage selectSize() {
-//		waitForPresenceOfElement(buttonOpenListOfSizes).click();
 		waitUntilElementToBeClickableAndClick(buttonOpenListOfSizes);
 		waitUntilElementToBeClickableAndClick(buttonSelectSize);
 		return this;

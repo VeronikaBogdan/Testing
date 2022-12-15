@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class DressProductPage extends ProductPage {
 	private final Logger logger = LogManager.getRootLogger();
-	private static final String PRODUCT_PAGE_URL = "https://markformelle.by/catalog/zhenshchinam/mf-life/platya-tuniki-yubki/platya-tuniki-dlinnyy-rukav/152549-12274-18117/";
+	private static final String PRODUCT_PAGE_URL = "https://markformelle.by/catalog/zhenshchinam/mf-life/platya-tuniki-yubki/platya-tuniki-dlinnyy-rukav/152532-75491-1050/";
 
 	public DressProductPage(WebDriver driver) {
 		super(driver);

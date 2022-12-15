@@ -10,7 +10,6 @@ import static org.hamcrest.Matchers.is;
 public class CartPageTest extends CommonConditions {
 	private static final String AMOUNT_OF_PRODUCTS = "1";
 	private static final String GO_TO_CART = "Перейти в корзину";
-	private static final String TITLE_OF_PRODUCT = "Зауженные к низу брюки в черно-белую клетку виши";
 	private static final String EMPTY_CART_TEXT = "Ваша корзина пуста";
 	private static final String PRICE_TROUSERS = "54.79 BYN";
 	private static final String PRICE_SWEATER = "34.79 BYN";
@@ -18,16 +17,35 @@ public class CartPageTest extends CommonConditions {
 //	@Test
 //	public void testAddProductToCart() {
 //		ProductPage addingProductToCart = addProductToCart(new ProductPage(webDriver));
-//		assertThat(addingProductToCart.getTitleOfProduct(), is(equalTo(TITLE_OF_PRODUCT)));
-////		assertThat(addingProductToCart.getButtonGoToCart(), is(equalTo(GO_TO_CART)));
-//		assertThat(addingProductToCart.getAmountOfProducts(), is(equalTo(AMOUNT_OF_PRODUCTS)));
+//		String titleOfProduct = addingProductToCart.getTitleOfProduct();
+//		String amountOfProducts = addingProductToCart.getAmountOfProducts();
+//		String buttonGoToCart = addingProductToCart.getButtonGoToCart();
 //
 //		String amountOfProductsInCart = new CartPage(webDriver)
 //			.openPage()
 //			.getAmountOfProducts();
-//		assertThat(amountOfProductsInCart, is(equalTo(AMOUNT_OF_PRODUCTS)));
-//	}
+//		String titleOfProductInCart = new CartPage(webDriver)
+//			.openPage()
+//			.getTitleOfProduct();
 //
+//		assertThat(buttonGoToCart, is(equalTo(GO_TO_CART)));
+//		assertThat(amountOfProducts, is(equalTo(amountOfProductsInCart)));
+//		assertThat(titleOfProduct, is(equalTo(titleOfProductInCart)));
+//	}
+
+	@Test
+	public void testCostOfProductWithIncreaseInQuantityIsCalculatedCorrectly() {
+		addProductToCart(new SweaterProductPage(webDriver));
+		CartPage doubledProduct = new CartPage(webDriver)
+			.openPage()
+			.choosePickup()
+			.clickButtonPlus();
+		double priceForUnit = Double.parseDouble(doubledProduct.getPriceForUnit().substring(0,5));
+		double priceProduct = Double.parseDouble(doubledProduct.getPriceProduct().substring(0,5));
+
+		assertThat(Math.round(priceForUnit * 2), is(equalTo(Math.round(priceProduct))));
+	}
+
 //	@Test
 //	public void testClearCart() {
 //		addProductToCart(new ProductPage(webDriver));
@@ -35,10 +53,6 @@ public class CartPageTest extends CommonConditions {
 //			.openPage()
 //			.clearCart()
 //			.getEmptyCartText();
-////		new CartPage(webDriver)
-////			.openPage()
-////			.clearCart();
-////		String emptyCartText = new EmptyCartPage(webDriver).openPage().getEmptyCartText();
 //		assertThat(emptyCartText, is(equalTo(EMPTY_CART_TEXT)));
 //	}
 //
@@ -54,11 +68,11 @@ public class CartPageTest extends CommonConditions {
 //			.getAmountOfProducts();
 //		assertThat(amountOfProducts,is(equalTo(AMOUNT_OF_PRODUCTS)));
 //	}
-//
-//	public ProductPage addProductToCart(ProductPage productPage) {
-//		return productPage
-//			.openPage()
-//			.selectSize()
-//			.addToCart();
-//	}
+
+	public ProductPage addProductToCart(ProductPage productPage) {
+		return productPage
+			.openPage()
+			.selectSize()
+			.addToCart();
+	}
 }

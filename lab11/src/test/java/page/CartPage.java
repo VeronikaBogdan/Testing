@@ -3,7 +3,9 @@ package page;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import util.LocatorUtil;
 
 public class CartPage extends AbstractPage{
@@ -12,10 +14,35 @@ public class CartPage extends AbstractPage{
 	private static final String REMOVE_PRODUCT_LOCATOR_PATTERN = "//div[text()='%s']/../..//a[@data-entity='basket-item-delete']";
 	private final By amountOfProducts = By.xpath("//span[@class='num']/span[text()='1']");
 	private final By buttonClearCart = By.xpath("//div[contains(text(), 'Очистить')]");
-//	private final By emptyCartText = By.xpath("//div[@class='bx-sbb-empty-cart-text']");
+	private final By emptyCartText = By.xpath("//div[@class='bx-sbb-empty-cart-text']");
+	private final By titleOfProduct = By.xpath("//a[contains(@class, 'info-item product-title-desktop')]");
+	private final By pickup = By.xpath("//span[contains(text(), 'Самовывоз')]");
+	private final By buttonPlus = By.xpath("//span[@class='basket-item-amount-btn-plus']");
+	private final By priceForUnit = By.xpath("//div[contains(@id,'basket-item-price')]");
+	private final By priceProduct = By.xpath("//div[contains(@id,'basket-item-sum-price')]");
+	private final By priceDeliveryFromWarehouse = By.xpath("//div[@class='pink-text']");
+	private final By totalPrice = By.xpath("//div[@class='basket-total__price']");
+
+
 
 	public CartPage(WebDriver driver) {
 		super(driver);
+	}
+
+	public CartPage choosePickup() {
+//		JavascriptExecutor js = (JavascriptExecutor) webDriver;
+//		js.executeScript("window.scrollBy(0,100)");
+		waitUntilElementToBeClickableAndClick(pickup);
+		return this;
+	}
+
+	public CartPage clickButtonPlus() {
+		waitForPresenceOfElement(buttonPlus).click();
+//		waitForPresenceOfElement(buttonPlus);
+//		Actions action = new Actions(webDriver);
+//		action.moveToElement(waitForPresenceOfElement(buttonPlus)).moveByOffset(0, 5).click();
+//		waitUntilElementToBeClickableAndClick(buttonPlus);
+		return this;
 	}
 
 	public CartPage removeProduct(String price) {
@@ -25,8 +52,33 @@ public class CartPage extends AbstractPage{
 
 	public CartPage clearCart() {
 		waitForPresenceOfElement(buttonClearCart).click();
-//		waitUntilElementToBeClickableAndClick(buttonClearCart);
+		logger.info("Cart is cleared");
 		return this;
+	}
+
+	public String getPriceForUnit() {
+		return waitForPresenceOfElement(priceForUnit)
+			.getText();
+	}
+
+	public String getTotalPrice() {
+		return waitForPresenceOfElement(totalPrice)
+			.getText();
+	}
+
+	public String getPriceDeliveryFromWarehouse() {
+		return waitForPresenceOfElement(priceDeliveryFromWarehouse)
+			.getText();
+	}
+
+	public String getPriceProduct() {
+		return waitForPresenceOfElement(priceProduct)
+			.getText();
+	}
+
+	public String getTitleOfProduct() {
+		return waitForPresenceOfElement(titleOfProduct)
+			.getText();
 	}
 
 	public String getAmountOfProducts() {
@@ -35,12 +87,14 @@ public class CartPage extends AbstractPage{
 	}
 
 	public String getEmptyCartText() {
-		return waitForPresenceOfElement(By.xpath("//div[@class='bx-sbb-empty-cart-text']"))
+		return waitForPresenceOfElement(emptyCartText)
 			.getText();
 	}
 
 	@Override
 	public CartPage openPage() {
+		JavascriptExecutor js = (JavascriptExecutor) webDriver;
+		js.executeScript("window.scrollBy(0,300)");
 		webDriver.get(CART_PAGE_URL);
 		logger.info("Cart Page opened");
 		return this;
