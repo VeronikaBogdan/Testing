@@ -16,10 +16,6 @@ public class DriverSingleton {
 					WebDriverManager.chromedriver().setup();
 					webDriver = new ChromeDriver();
 				}
-//				default: {
-//					WebDriverManager.chromedriver().setup();
-//					webDriver = new ChromeDriver();
-//				}
 			}
 			webDriver.manage().window().maximize();
 		}
