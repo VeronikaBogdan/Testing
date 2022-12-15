@@ -32,19 +32,6 @@ public class CartPageTest extends CommonConditions {
 		assertThat(amountOfProducts, is(equalTo(amountOfProductsInCart)));
 		assertThat(titleOfProduct, is(equalTo(titleOfProductInCart)));
 	}
-//
-//	@Test
-//	public void testCostOfProductWithIncreaseInQuantityIsCalculatedCorrectly() {
-//		addProductToCart(new SweaterProductPage(webDriver));
-//		CartPage doubledProduct = new CartPage(webDriver)
-//			.openPage()
-//			.choosePickup()
-//			.clickButtonPlus();
-//		double priceForUnit = Double.parseDouble(doubledProduct.getPriceForUnit().substring(0,5));
-//		double priceProduct = Double.parseDouble(doubledProduct.getPriceProduct().substring(0,5));
-//
-//		assertThat(Math.round(priceForUnit * 2), is(equalTo(Math.round(priceProduct))));
-//	}
 
 	@Test
 	public void testTotalSumIsCalculatedCorrectly() {

@@ -3,7 +3,6 @@ package test;
 import model.User;
 import org.testng.annotations.Test;
 import page.CertificatePage;
-import page.SweaterProductPage;
 import service.UserCreator;
 
 import static org.hamcrest.MatcherAssert.assertThat;

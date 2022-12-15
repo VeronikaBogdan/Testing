@@ -14,10 +14,6 @@ public class CartPage extends AbstractPage{
 	private final By buttonClearCart = By.xpath("//div[contains(text(), 'Очистить')]");
 	private final By emptyCartText = By.xpath("//div[@class='bx-sbb-empty-cart-text']");
 	private final By titleOfProduct = By.xpath("//a[contains(@class, 'info-item product-title-desktop')]");
-	private final By pickup = By.xpath("//span[contains(text(), 'Самовывоз')]");
-	private final By buttonPlus = By.xpath("//span[@class='basket-item-amount-btn-plus']");
-	private final By priceForUnit = By.xpath("//div[contains(@id,'basket-item-price')]");
-	private final By priceProduct = By.xpath("//div[contains(@id,'basket-item-sum-price')]");
 	private final By priceDeliveryFromWarehouse = By.xpath("//div[@class='pink-text']");
 	private final By totalPrice = By.xpath("//div[@class='basket-total__price']");
 	private final By priceDelivery = By.xpath("//li[@class='basket-total__info']/div[contains(text(), '4')]");
@@ -26,19 +22,9 @@ public class CartPage extends AbstractPage{
 		super(driver);
 	}
 
-	public CartPage choosePickup() {
-		waitUntilElementToBeClickableAndClick(pickup);
-		return this;
-	}
-
-	public CartPage clickButtonPlus() {
-		waitForPresenceOfElement(buttonPlus).click();
-		return this;
-	}
-
 	public CartPage removeProduct(String price) {
 		waitUntilElementToBeClickableAndClick(LocatorUtil.getLocatorByXpathPattern(REMOVE_PRODUCT_LOCATOR_PATTERN, price));
-		logger.info("Product with price" + price + " is removed");
+		logger.info("Product with price " + price + " is removed");
 		return this;
 	}
 
@@ -48,11 +34,6 @@ public class CartPage extends AbstractPage{
 		return this;
 	}
 
-	public String getPriceForUnit() {
-		return waitForPresenceOfElement(priceForUnit)
-			.getText();
-	}
-
 	public String getTotalPrice() {
 		return waitForPresenceOfElement(totalPrice)
 			.getText();
@@ -60,11 +41,6 @@ public class CartPage extends AbstractPage{
 
 	public String getPriceDeliveryFromWarehouse() {
 		return waitForPresenceOfElement(priceDeliveryFromWarehouse)
-			.getText();
-	}
-
-	public String getPriceProduct() {
-		return waitForPresenceOfElement(priceProduct)
 			.getText();
 	}
 

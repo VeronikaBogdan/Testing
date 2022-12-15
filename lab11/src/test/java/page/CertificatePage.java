@@ -4,12 +4,11 @@ import model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 public class CertificatePage extends AbstractPage{
 	private final Logger logger = LogManager.getRootLogger();
-	protected static final String CART_PAGE_URL = "https://markformelle.by/electronic-gift-card/";
+	protected static final String CERTIFICATION_PAGE_URL = "https://markformelle.by/electronic-gift-card/";
 	private final By nameOfBuyer = By.xpath("//input[@id='field_NAME']");
 	private final By nameOfRecipient = By.xpath("//input[@id='field_TO_NAME']");
 	private final By emailOfRecipient = By.xpath("//input[@id='field_TO_EMAIL']");
@@ -49,8 +48,8 @@ public class CertificatePage extends AbstractPage{
 
 	@Override
 	public CertificatePage openPage() {
-		webDriver.get(CART_PAGE_URL);
-		logger.info("Certificate Page opened");
+		webDriver.get(CERTIFICATION_PAGE_URL);
+		logger.info("Certificate Page is opened");
 		return this;
 	}
 }
